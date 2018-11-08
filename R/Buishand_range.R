@@ -9,18 +9,21 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   }
   serie_mean <- mean(serie,na.rm = T)
   serie_sd <- sd(serie,na.rm = T)
-  if(dstr == 'gamma'){
-    delta <- min(serie[!na_ind]) - 1
-    par_gamma <- fitdistr(serie[!na_ind]-delta,'gamma')
-  }
   serie_com <- serie[!na_ind]
+  
+  #if dstr = gamma; need parameters to fit:
+  if(dstr == 'gamma'){
+    delta <- min(serie_com) - 1
+    par_gamma <- fitdistr(serie_com-delta,'gamma')
+  }
+  
 
-
+  #Interval to compute the test
   i_ini <- n_period
   i_fin <- n-n_period
 
   serie <- serie-serie_mean
-
+  
   a_v1 <- 0
   a_v2 <- max(serie, na.rm = T)
   for(i in i_ini:i_fin){
@@ -38,8 +41,11 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   if(abs(a_v2) >abs(a_v1)){ i_break <- i_break2
   }else{i_break <- i_break1}
 
+  
+  #Begin Simulations
   a_sim <- vector(mode = 'double',length = simulations)
   if(dstr == 'norm'){
+    #Monte Carlo for Normal FDP
     for(i in 1:simulations){
 
       aux <- rnorm(n_no_na,mean=serie_mean,sd = serie_sd)
@@ -61,6 +67,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       a_sim[i] <- (a_v1 - a_v2)/sqrt(n_no_na)
     }
   } else if( dstr == 'gamma'){
+    # Monte Carlo for Gamma FDP
     for(i in 1:simulations){
 
       aux <- rgamma(n=n_no_na,shape=par_gamma$estimate[1],rate = par_gamma$estimate[2])
@@ -83,6 +90,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   } else if (dstr == 'self'){
+    #Bootstrap
     for(i in 1:simulations){
 
       aux <- sample(x = serie_com,replace = T,size = n_no_na)
