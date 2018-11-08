@@ -1,5 +1,5 @@
 SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
-  serie <- as.vector(serie)
+  serie <- as.numeric(as.vector(serie))
   n <- length(serie)
   na_ind <- is.na(serie)
   n_no_na <- n - sum(as.numeric(na_ind))
@@ -31,6 +31,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
   a_sim <- vector(mode = 'double',length = simulations)
 
+    #Begin simulations:
   if(dstr == 'norm'){
     for(j in 1:simulations){
       aux <- rnorm(n_no_na,mean=serie_mean,sd = serie_sd)
@@ -79,7 +80,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   }else{
     stop('not support dstr')
   }
-
+  #Check p.value
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(t_cri)
   out <- list(breaks = i_break+1 ,p.value = p)
