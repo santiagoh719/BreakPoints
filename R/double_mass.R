@@ -4,9 +4,9 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
   dd <- is.null(dim(serie))
   if(!dd){d1 <- dim(serie)[2] != 1 & dim(serie)[1] != 1}
   if(!dd | d1){
-
+    stop('not supported dimention of serie')
   }else{
-    serie <- as.vector(serie)
+    serie <- as.numeric(as.vector(serie))
     n <- length(serie)
     if(!is.null(date_axis) & length(date_axis) != n){date_axis=NULL}
     na_ind <- is.na(serie)
@@ -14,9 +14,12 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
     desv <- sd(serie,na.rm = T)
     delta <- min(serie[!na_ind])-1
     par_gamma <- fitdistr(serie[!na_ind]-delta,'gamma')
-
+    
+    # Make cummulative sum of the serie
     serie[na_ind] <- 0
     serie <- cumsum(serie)
+    
+    # Begin simulations
     mat1 <- matrix(NA, nrow = n, ncol = simulations)
     mat2 <- matrix(NA, nrow = n, ncol = simulations)
     for(i in 1:simulations){
@@ -28,10 +31,13 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
       mat2[na_ind,i] <- 0
       mat2[,i] <- cumsum(mat2[,i])
     }
+    # Compute the boundaryes
     q1_1 <- apply(mat1,1,quantile,probs=alpha/2)
     q3_1 <- apply(mat1,1,quantile,probs=1-alpha/2)
     q1_2 <- apply(mat2,1,quantile,probs=alpha/2)
     q3_2 <- apply(mat2,1,quantile,probs=1-alpha/2)
+    
+    # Make ggplot objet if ploting = T
     if(ploting){
       if(is.null(date_axis)){
         dat <- data.frame(serie=serie,q11=q1_1,q31=q3_1,q12=q1_2,q32=q3_2,x=1:n)
