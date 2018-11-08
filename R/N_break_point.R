@@ -2,7 +2,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
   # select method
   {
     if( method == 'pettit'){
-      fun <- pettitt
+      fun <- pettit
     }else if( method == 'student'){
       fun <- stu
     }else if( method == 'mann-whitney'){
