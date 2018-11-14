@@ -1,5 +1,5 @@
 pettit <- function(serie,n_period){
-  serie <- as.numeric(as.vector(serie))
+  serie <- as.vector(serie)
   n <- length(serie)
   if(n < 2*n_period){
     stop('serie no long enough or n_period to long')
