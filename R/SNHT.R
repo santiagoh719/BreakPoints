@@ -1,5 +1,5 @@
 SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
-  serie <- as.numeric(as.vector(serie))
+  serie <- as.vector(serie)
   n <- length(serie)
   na_ind <- is.na(serie)
   n_no_na <- n - sum(as.numeric(na_ind))
