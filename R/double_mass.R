@@ -6,7 +6,7 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
   if(!dd | d1){
     stop('not supported dimention of serie')
   }else{
-    serie <- as.numeric(as.vector(serie))
+    serie <- as.vector(serie)
     n <- length(serie)
     if(!is.null(date_axis) & length(date_axis) != n){date_axis=NULL}
     na_ind <- is.na(serie)
