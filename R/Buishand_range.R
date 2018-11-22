@@ -43,6 +43,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
   
   #Begin Simulations
+  set.seed(14243)
   a_sim <- vector(mode = 'double',length = simulations)
   if(dstr == 'norm'){
     #Monte Carlo for Normal FDP
