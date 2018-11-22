@@ -20,6 +20,7 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
     serie <- cumsum(serie)
     
     # Begin simulations
+      set.seed(14243)
     mat1 <- matrix(NA, nrow = n, ncol = simulations)
     mat2 <- matrix(NA, nrow = n, ncol = simulations)
     for(i in 1:simulations){
