@@ -5,7 +5,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   na_ind <- is.na(serie)
   n_no_na <- n - sum(as.numeric(na_ind))
   if(n < 2*n_period){
-    stop('serie no long enough or n_period to long')
+    stop('serie no long enough or n_period too long')
   }
   serie_mean <- mean(serie,na.rm = T)
   serie_sd <- sd(serie,na.rm = T)
@@ -114,7 +114,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   }else{
-    stop('not support dstr')
+    stop('not supported dstr input')
   }
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(a_v)
