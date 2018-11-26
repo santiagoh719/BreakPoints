@@ -21,7 +21,7 @@
 
 
 \value{
-  \code{man.whi} and \code{stu} returns a list with the breakpoint index and it's p value
+  \code{man.whi} and \code{stu} returns a list with the breakpoint index and its p value
   \describe{
   \item{breaks}{index where the breakpoint is found}
   \item{p.value}{p value of the test}
