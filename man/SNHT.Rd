@@ -18,9 +18,9 @@
 
   \item{n_period}{an integer specifying the minimal length of a complete period to consider}
 
-  \item{dstr}{character specifying wich distribution should be used for test simulations, 'norm' (default; normal distribution), 'gamma', and 'self' (will compute bootstrap)}
+  \item{dstr}{character specifying which distribution should be used for test simulations, 'norm' (default; normal distribution), 'gamma', and 'self' (will compute bootstrap)}
 
-  \item{simulations}{an integer specifying how many montecarlo simulations to perform}
+  \item{simulations}{an integer specifying how many Monte Carlo simulations to perform}
 
 }
 
