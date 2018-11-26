@@ -4,7 +4,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   na_ind <- is.na(serie)
   n_no_na <- n - sum(as.numeric(na_ind))
   if(n < 2*n_period){
-    stop('serie no long enough or n_period to long')
+    stop('serie no long enough or n_period too long')
   }
   i_ini <- n_period
   i_fin <- n-n_period
@@ -79,7 +79,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   }else{
-    stop('not support dstr')
+    stop('not supported dstr input')
   }
   #Check p.value
   cum_dist_func <- ecdf(a_sim)
