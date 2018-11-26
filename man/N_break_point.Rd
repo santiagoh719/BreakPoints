@@ -14,13 +14,13 @@
 
   \item{n_period}{an integer specifying the minimal length of a complete period to consider}
 
-  \item{seed}{logical should the first breakpoint be creating using the inhomogeinity method (T, default) or equaly separate point should be use (FALSE) }
+  \item{seed}{logical should the first breakpoint be creating using the inhomogeneity method (T, default) or equally separate point should be use (FALSE) }
 
-  \item{method}{which method should be use for breakpoint detection, supported: 'student' (default), 'mann-whitney','SNHT','buishand' and 'pettit'}
+  \item{method}{which method should be used for breakpoint detection, supported: 'student' (default), 'mann-whitney','SNHT','buishand' and 'pettit'}
 
-  \item{dstr}{character specifying wich distribution should be used for test simulations,if method is SNHT or buishand}
+  \item{dstr}{character specifying which distribution should be used for test simulations,if method is SNHT or buishand}
 
-  \item{auto_select}{ lofical, should an automatic selection of how many breakpoints are be made, default FALSE}
+  \item{auto_select}{ logical, should an automatic selection of how many breakpoints are be made, default FALSE}
 
   \item{alpha}{numeric, critical value to use for auto_select}
 
