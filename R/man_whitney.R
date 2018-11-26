@@ -2,7 +2,7 @@ man.whi <- function(serie,n_period=10){
   serie <- as.vector(serie)
   n <- length(serie)
   if(n < 2*n_period){
-    stop('serie no long enough or n_period to long')
+    stop('serie no long enough or n_period too long')
   }
   i_ini <- n_period
   i_fin <- n-n_period
