@@ -60,13 +60,13 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
       n_max <- n_targ%/%n_period-1
       if(n_max < 1){
         if(length(na_break) > 1){
-          warning(('Not possible to find breakpoints in part of the serie, to short'))
+          warning(('Not possible to find breakpoints in part of the serie, too short'))
           outputcont <- outputcont - 1; next
         }else{
-          stop('Not possible to find breakpoints, target serie to short')
+          stop('Not possible to find breakpoints, target serie too short')
         }
       }
-      warning(paste0('the given n is to big for the target and n_period length, ',n_max, ' will be use as maximal amount of breakpoints') )
+      warning(paste0('the given n is too big for the target and n_period length, ',n_max, ' will be use as maximal amount of breakpoints') )
     }
     output_aux <- list(breaks = list(),p.value=list(),n=list())
     no_seed <- F
@@ -153,31 +153,27 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
           if(iters > 3){
             if(all(breaks==breaks_old_old)){
               no_problem <- F
-              warning(paste0('several critical point found and looping, at n =', n))
-              if(max(p_old) < max(p)){
-                breaks <- breaks_old
-              }
+              warning(paste0('several critical point found at n =', n))
+              breaks <- NULL
               next
             }else if(all(breaks==breaks_old_old_old)){
               no_problem <- F
-              warning(paste0('several critical point found and looping, at n =', n))
-              if(max(p_old_old) < max(p)){
-                if(max(p_old_old) < max(p_old)){
-                  breaks <- breaks_old_old
-                }else{
-                  breaks <- breaks_old
-                }
-              }else if(max(p_old) < max(p)){
-                breaks <- breaks_old
-              }
+              warning(paste0('several critical point found at n =', n))
+              breaks <- NULL
               next
             }
           }
         }
       }
-      output_aux$breaks[[n]] <- breaks+ini
-      output_aux$p.value[[n]] <- p
-      output_aux$n[[n]] <- n
+      if(is.null(breaks)){
+        output_aux$breaks[[n]] <- NA
+        output_aux$p.value[[n]] <- 1
+        output_aux$n[[n]] <- n
+      }else{
+        output_aux$breaks[[n]] <- breaks+ini
+        output_aux$p.value[[n]] <- p
+        output_aux$n[[n]] <- n
+      }
     }
     output[[outputcont]] <- output_aux
   }
@@ -205,9 +201,9 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
       }
       bb <- c(bb,output_aux$breaks[[i]])
       pp_final <- c(pp_final,output_aux$p.value[[i]])
-      n_final <- i + n
+      n_final <- i + n_final
     }
-    output <- list(breaks = bb,p.value=pp_final,n=i)
+    output <- list(breaks = bb,p.value=pp_final,n=n_final)
   }
   return(output)
 
