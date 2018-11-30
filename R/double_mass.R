@@ -1,11 +1,5 @@
 
 double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alpha = 0.5){
-  d1 <- F
-  dd <- is.null(dim(serie))
-  if(!dd){d1 <- dim(serie)[2] != 1 & dim(serie)[1] != 1}
-  if(!dd | d1){
-    stop('not supported dimention of serie')
-  }else{
     serie <- as.vector(serie)
     n <- length(serie)
     if(!is.null(date_axis) & length(date_axis) != n){date_axis=NULL}
@@ -59,5 +53,5 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
     }else{
       return(list(real=serie,lower_norm=q1_1,upper_norm=q3_1,lower_gamma=q1_2,upper_gamma=q3_2))
     }
-  }
+  
 }
