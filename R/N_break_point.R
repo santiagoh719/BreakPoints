@@ -57,7 +57,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
 
     n_targ <- length(target)
     if((n_max+1)*n_period > n_targ-2){
-      n_max <- n_targ%/%n_period-1
+      n_max <- n_targ%/%n_period-2
       if(n_max < 1){
         if(length(na_break) > 1){
           warning(('Not possible to find breakpoints in part of the serie, too short'))
