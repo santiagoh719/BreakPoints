@@ -97,7 +97,10 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     for(i in 1:simulations){
 
       aux <- sample(x = serie_com,replace = T,size = n_no_na)
-
+      
+      sd_aux <- sd(aux)
+      mn_aux <- mean(aux)
+      
       a_v1 <- min(aux)
       a_v2 <- max(aux)
       aux <- aux - mn_aux
