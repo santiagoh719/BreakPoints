@@ -6,7 +6,7 @@ pettit <- function(serie,n_period){
   }
   i_ini <- n_period
   i_fin <- n-n_period
-  U_v <- 0
+  U_v <- -1
   n_row <- n-i_ini
   aux1 <- matrix(serie[1:i_fin],ncol = i_fin,nrow = n_row)
   aux2 <- matrix(serie[(i_ini+1):n],ncol = i_fin,nrow = n_row,byrow = T)
