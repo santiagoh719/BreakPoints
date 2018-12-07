@@ -108,9 +108,6 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       a_v1 <- min(aux)
       a_v2 <- max(aux)
       
-
-      a_v1 <- 0
-      a_v2 <- max(aux)+1
       for(j in i_ini:(n_no_na-n_period-1)){
         a <-sum(aux[1:j],na.rm = T)/sd_aux
         if( a > a_v1){
