@@ -11,7 +11,7 @@ stu <- function(serie,n_period=10){
     aux1 <- serie[1:i]
     aux2 <- serie[(i+1):n]
     p <- t.test(aux1,aux2, paired = F, var.equal = F)$p.value
-    if(p < p_v){
+    if(p <= p_v){
       p_v <- p
       i_break <- i+1
     }
