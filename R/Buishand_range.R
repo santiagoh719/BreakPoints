@@ -100,10 +100,11 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       
       sd_aux <- sd(aux)
       mn_aux <- mean(aux)
+      aux <- aux - mn_aux
       
       a_v1 <- min(aux)
       a_v2 <- max(aux)
-      aux <- aux - mn_aux
+      
 
       a_v1 <- 0
       a_v2 <- max(aux)+1
