@@ -24,7 +24,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
   serie <- serie-serie_mean
   
-  a_v1 <- 0
+  a_v1 <- min(serie, na.rm = T)
   a_v2 <- max(serie, na.rm = T)
   for(i in i_ini:i_fin){
     a <-sum(serie[1:i],na.rm = T)/serie_sd
@@ -55,13 +55,14 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       mn_aux <- mean(aux)
       aux <- aux - mn_aux
 
-      a_v1 <- 0
-      a_v2 <- max(aux)+1
+      a_v1 <- min(aux)
+      a_v2 <- max(aux)
       for(j in i_ini:(n_no_na-n_period-1)){
         a <-sum(aux[1:j],na.rm = T)/sd_aux
         if( a > a_v1){
           a_v1 <- a
-        }else if(a < a_v2){
+        }
+        if(a < a_v2){
           a_v2 <- a
         }
       }
@@ -77,13 +78,14 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       mn_aux <- mean(aux)
       aux <- aux - mn_aux
 
-      a_v1 <- 0
-      a_v2 <- max(aux)+1
+      a_v1 <- min(aux)
+      a_v2 <- max(aux)
       for(j in i_ini:(n_no_na-n_period-1)){
         a <-sum(aux[1:j],na.rm = T)/sd_aux
         if( a > a_v1){
           a_v1 <- a
-        }else if(a < a_v2){
+        }
+        if(a < a_v2){
           a_v2 <- a
         }
       }
@@ -96,8 +98,8 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
       aux <- sample(x = serie_com,replace = T,size = n_no_na)
 
-      sd_aux <- sd(aux)
-      mn_aux <- mean(aux)
+      a_v1 <- min(aux)
+      a_v2 <- max(aux)
       aux <- aux - mn_aux
 
       a_v1 <- 0
@@ -106,7 +108,8 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
         a <-sum(aux[1:j],na.rm = T)/sd_aux
         if( a > a_v1){
           a_v1 <- a
-        }else if(a < a_v2){
+        }
+        if(a < a_v2){
           a_v2 <- a
         }
       }
