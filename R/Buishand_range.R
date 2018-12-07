@@ -99,6 +99,9 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       aux <- sample(x = serie_com,replace = T,size = n_no_na)
       
       sd_aux <- sd(aux)
+      if(sd_aux == 0){
+        next
+      }
       mn_aux <- mean(aux)
       aux <- aux - mn_aux
       
