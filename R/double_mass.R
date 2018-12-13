@@ -1,5 +1,9 @@
 
 double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alpha = 0.5){
+    if(exists(x = '.Random.seed')){
+      old <- .Random.seed
+      on.exit( { .Random.seed <<- old } )
+    }
     serie <- as.vector(serie)
     n <- length(serie)
     if(!is.null(date_axis) & length(date_axis) != n){date_axis=NULL}
