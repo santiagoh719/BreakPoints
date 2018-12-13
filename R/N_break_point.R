@@ -1,5 +1,9 @@
 N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select = F, alpha = NULL,method='student',dstr='norm'){
   # select method
+  if(exists(x = '.Random.seed')){
+      old <- .Random.seed
+      on.exit( { .Random.seed <<- old } )
+  }
   {
     if( method == 'pettit'){
       fun <- pettit
