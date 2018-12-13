@@ -1,4 +1,8 @@
 pettit <- function(serie,n_period){
+  if(exists(x = '.Random.seed')){
+      old <- .Random.seed
+      on.exit( { .Random.seed <<- old } )
+  }
   serie <- as.vector(serie)
   n <- length(serie)
   if(n < 2*n_period){
