@@ -43,6 +43,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
   
   #Begin Simulations
+  old <- .Random.seed
   set.seed(14243)
   a_sim <- vector(mode = 'double',length = simulations)
   if(dstr == 'norm'){
@@ -121,8 +122,10 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   }else{
+    .Random.seed <- old
     stop('not supported dstr input')
   }
+  .Random.seed <- old
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(a_v)
   out <- list(breaks = i_break+1 ,p.value = p)
