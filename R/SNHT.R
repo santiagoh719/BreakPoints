@@ -1,4 +1,8 @@
 SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
+  if(exists(x = '.Random.seed')){
+      old <- .Random.seed
+      on.exit( { .Random.seed <<- old } )
+  }
   serie <- as.vector(serie)
   n <- length(serie)
   na_ind <- is.na(serie)
@@ -32,7 +36,6 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   a_sim <- vector(mode = 'double',length = simulations)
 
   #Begin simulations:
-  old <- .Random.seed
   set.seed(14243)
   if(dstr == 'norm'){
     for(j in 1:simulations){
@@ -83,10 +86,8 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   }else{
-    .Random.seed <- old
     stop('not supported dstr input')
   }
-  .Random.seed <- old
   #Check p.value
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(t_cri)
