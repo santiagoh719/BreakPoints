@@ -9,7 +9,8 @@ License: GPL-3
 Depends: R (>= 3.1.0)
 Imports: 
         MASS,
-        ggplot2
+        ggplot2,
+        zoo
 ByteCompile: yes
 Encoding: UTF-8
 LazyData: true
