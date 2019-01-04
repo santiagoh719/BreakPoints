@@ -1,6 +1,6 @@
 
 import(ggplot2)
-
+importFrom(zoo, rollapply)
 importFrom(MASS, fitdistr)
 
 export(double_mass)
