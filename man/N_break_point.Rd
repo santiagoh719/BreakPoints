@@ -14,7 +14,7 @@
 
   \item{n_period}{an integer specifying the minimal length of a complete period to consider}
 
-  \item{seed}{logical should the first breakpoint be creating using the inhomogeneity method (T, default) or equally separate point should be use (FALSE) }
+  \item{seed}{ if FALSE (default) the first breakpoints to inicialize the iteration are calculated by splitting the serie in equal separated parts. If seed is given must be a list() of length n_max where it is specified the first breakpoints to take for each iteration. }
 
   \item{method}{which method should be used for breakpoint detection, supported: 'student' (default), 'mann-whitney','SNHT','buishand' and 'pettit'}
 
