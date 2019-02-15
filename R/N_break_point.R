@@ -1,9 +1,15 @@
-N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select = F, alpha = NULL,method='student',dstr='norm'){
+N_break_point <- function(serie, n_max = 1, n_period=10, seed='F', auto_select = F, alpha = NULL,method='student',dstr='norm'){
   # select method
   if(exists(x = '.Random.seed')){
-      old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
+    old_random <- .Random.seed
   }
+  
+  if(!is.logical(seed)){
+    if(length(seed) != n_max){
+      stop('The given seed is not supported. If seed is given must be of length n_max')
+    }
+  }
+  
   {
     if( method == 'pettit'){
       fun <- pettit
@@ -14,15 +20,15 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
     }else if( method == 'buishand'){
       fun <- function(x,n_period){
         return(Buishand_R(serie = x,n_period = n_period,dstr = dstr))
-        }
+      }
     }else if( method == 'SNHT'){
       fun <- function(x,n_period){
         return(SNHT(serie = x,n_period = n_period,dstr = dstr))
       }
     }else{stop('Not supported method')}
   }
-
-
+  
+  
   target <- as.vector(serie)
   n_targ <- length(target)
   isna <- as.numeric(is.na(target))
@@ -58,7 +64,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
       target <- new_target[na_break[new_serie-1]:(na_break[new_serie]-1)]
     }
     outputcont <- outputcont +1
-
+    
     n_targ <- length(target)
     if((n_max+1)*n_period > n_targ-2){
       n_max <- n_targ%/%n_period-1
@@ -73,49 +79,16 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
       warning(paste0('the given n is too big for the target and n_period length, ',n_max, ' will be use as maximal amount of breakpoints') )
     }
     output_aux <- list(breaks = list(),p.value=list(),n=list())
-    no_seed <- F
     for(n in 1:n_max){
-      if(seed){
-        breaks <- rep(0,length = n)
-        ff <- fun(target,n_period)
-        breaks[1] <- ff$breaks
-        breaks <- sort(breaks,decreasing = T)
-        if(n > 1){
-          for(i in 2:n){
-            breaks_aux <- sort(breaks[1:(i-1)],decreasing = F)
-            p_old <- 1
-            vec_aux <- c(1,breaks_aux)
-            break_new <- NULL
-            for(jaux in 1:i){
-              j <- vec_aux[jaux]
-              if(j == breaks_aux[i-1]){
-                nn <- n_targ
-              }else{
-                nn <- breaks_aux[jaux]-1
-              }
-              aux <- target[j:nn]
-              if(length(aux) < n_period * 2 + 2){next}
-              ff <- fun(aux,n_period)
-              p_aux <- ff$p.value
-              if(p_aux<p_old){
-                p_old <- p_aux
-                break_new <- ff$breaks + j - 1
-              }
-            }
-            if(is.null(break_new)){
-              no_seed <- T
-              warning('Not possible to generate initial breakpoints in this way')
-              break
-            }
-            breaks[i] <- break_new
-            breaks <- sort(breaks,decreasing = T)
-          }
-        }
+      if(is.logical(seed)){
+        breaks <- as.integer(1:n * (n_targ/(n+1)))+1
       }else{
-        breaks <- as.integer(1:n * (n_targ/(n+1)))+1
-      }
-      if(no_seed){
-        breaks <- as.integer(1:n * (n_targ/(n+1)))+1
+        if(length(seed[[n]])==n){
+          breaks <- seed[[n]]
+        }else{
+          warning(paste('The seed provided at',n,'breaks differs in length equal space break seed will be use instead',sep=' '))
+          breaks <- as.integer(1:n * (n_targ/(n+1)))+1
+        }
       }
       breaks <- sort(breaks,decreasing = F)
       p <- rep(1,length(breaks))
@@ -149,7 +122,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
               aux <- target[breaks[i-1]:(breaks[i+1]-1)]
               break_aux <- breaks[i-1]-1
             }
-
+            
             ff <- fun(aux,n_period)
             breaks[i] <- ff$breaks + break_aux
             p[i] <- ff$p.value
@@ -181,7 +154,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
     }
     output[[outputcont]] <- output_aux
   }
-
+  
   if(auto_select){
     output_new <- output
     output <- list(breaks = NULL,p.value=NULL,n=NULL)
@@ -209,6 +182,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='T', auto_select =
     }
     output <- list(breaks = bb,p.value=pp_final,n=n_final)
   }
+  .Random.seed <- old
   return(output)
-
+  
 }
