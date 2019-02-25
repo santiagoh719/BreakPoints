@@ -2,6 +2,8 @@
 import(ggplot2)
 importFrom(zoo, rollapply)
 importFrom(MASS, fitdistr)
+importFrom(trend, mk.test)
+
 
 export(double_mass)
 export(Buishand_R)
