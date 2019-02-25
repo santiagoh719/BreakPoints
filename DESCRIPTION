@@ -10,7 +10,8 @@ Depends: R (>= 3.1.0)
 Imports: 
         MASS,
         ggplot2,
-        zoo
+        zoo,
+        trend
 ByteCompile: yes
 Encoding: UTF-8
 LazyData: true
