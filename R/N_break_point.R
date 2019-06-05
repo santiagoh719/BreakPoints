@@ -183,7 +183,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='F', auto_select =
     output <- list(breaks = bb,p.value=pp_final,n=n_final)
   }
   if(exists(x = '.Random.seed')){
-    .Random.seed <- old
+    .Random.seed <- old_random
   }
   return(output)
   
