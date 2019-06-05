@@ -1,7 +1,7 @@
 Package: BreakPoints
 Type: Package
 Title: Identify breakpoints in series of data
-Version: 0.1.1
+Version: 0.1.2
 Author: Hurtado I. Santiago
 Maintainer: Hurtado I. Santiago <santih@carina.unlp.edu.ar>
 Description: This package compute Buishand Range Test, Pettit Test, SNHT (), student test and Mann-Whitney Rank Test, to identify breakpoints in series. For all functions NA is allow. Since all of the mention methods identify only one breakpoint in a serie, a general function to look for N breakpoint is proposed and given. License: GPL-3
