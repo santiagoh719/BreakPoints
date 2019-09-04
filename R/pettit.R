@@ -1,7 +1,6 @@
 pettit <- function(serie,n_period){
   if(exists(x = '.Random.seed')){
       old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
   }
   serie <- as.vector(serie)
   n <- length(serie)
@@ -23,6 +22,10 @@ pettit <- function(serie,n_period){
       U_v <- U
       i_break <- i + i_ini
     }
+  }
+  if(exists(x = 'old')){
+    old <- .Random.seed
+    .Random.seed <- old
   }
   out <- list(breaks = i_break ,p.value = 2 * exp(-6*U_v**2/(n**3 + n**2)))
   return(out)

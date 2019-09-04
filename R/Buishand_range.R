@@ -1,7 +1,6 @@
 Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   if(exists(x = '.Random.seed')){
       old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
   }
   
   serie <- as.vector(serie)
@@ -47,9 +46,9 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
 
   
   #Begin Simulations
-  set.seed(14243)
   a_sim <- vector(mode = 'double',length = simulations)
   if(dstr == 'norm'){
+    set.seed(14243)
     #Monte Carlo for Normal FDP
     for(i in 1:simulations){
 
@@ -73,6 +72,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       a_sim[i] <- (a_v1 - a_v2)/sqrt(n_no_na)
     }
   } else if( dstr == 'gamma'){
+    set.seed(14243)
     # Monte Carlo for Gamma FDP
     for(i in 1:simulations){
 
@@ -97,6 +97,7 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   } else if (dstr == 'self'){
+    set.seed(14243)
     #Bootstrap
     for(i in 1:simulations){
 
@@ -130,5 +131,10 @@ Buishand_R <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(a_v)
   out <- list(breaks = i_break+1 ,p.value = p)
+  
+  if(exists(x = 'old')){
+    old <- .Random.seed
+    .Random.seed <- old
+  }
   return(out)
 }

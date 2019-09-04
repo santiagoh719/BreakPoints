@@ -1,7 +1,6 @@
 man.whi <- function(serie,n_period=10){
   if(exists(x = '.Random.seed')){
       old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
   }
   serie <- as.vector(serie)
   n <- length(serie)
@@ -19,6 +18,10 @@ man.whi <- function(serie,n_period=10){
       p_v <- p
       i_break <- i+1
     }
+  }
+  if(exists(x = 'old')){
+    old <- .Random.seed
+    .Random.seed <- old
   }
   out <- list(breaks = i_break ,p.value =p_v)
   return(out)

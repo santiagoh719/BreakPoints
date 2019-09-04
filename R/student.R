@@ -21,5 +21,11 @@ stu <- function(serie,n_period=10){
     }
   }
   out <- list(breaks = i_break ,p.value =p_v)
+  
+  
+  if(exists(x = 'old')){
+    old <- .Random.seed
+    .Random.seed <- old
+  }
   return(out)
 }

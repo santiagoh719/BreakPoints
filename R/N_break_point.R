@@ -1,4 +1,6 @@
-N_break_point <- function(serie, n_max = 1, n_period=10, seed='F', auto_select = F, alpha = NULL,method='student',dstr='norm'){
+N_break_point <- function(serie, n_max = 1, n_period=10,
+                          seed='F', auto_select = F,
+                          alpha = NULL,method='SNHT',dstr='norm'){
   # select method
   if(exists(x = '.Random.seed')){
     old_random <- .Random.seed
@@ -182,6 +184,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10, seed='F', auto_select =
     }
     output <- list(breaks = bb,p.value=pp_final,n=n_final)
   }
+  
   if(exists(x = '.Random.seed')){
     .Random.seed <- old_random
   }

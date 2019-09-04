@@ -2,7 +2,6 @@
 double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alpha = 0.5){
     if(exists(x = '.Random.seed')){
       old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
     }
     serie <- as.vector(serie)
     n <- length(serie)
@@ -36,6 +35,10 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
     q1_2 <- apply(mat2,1,quantile,probs=alpha/2)
     q3_2 <- apply(mat2,1,quantile,probs=1-alpha/2)
     
+    if(exists(x = 'old')){
+      old <- .Random.seed
+      .Random.seed <- old
+    }
     # Make ggplot objet if ploting = T
     if(ploting){
       if(is.null(date_axis)){
@@ -57,5 +60,5 @@ double_mass <- function(serie,ploting=T,date_axis=NULL,simulations = 10000, alph
     }else{
       return(list(real=serie,lower_norm=q1_1,upper_norm=q3_1,lower_gamma=q1_2,upper_gamma=q3_2))
     }
-  
+
 }

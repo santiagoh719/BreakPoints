@@ -1,8 +1,8 @@
 SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   if(exists(x = '.Random.seed')){
       old <- .Random.seed
-      on.exit( { .Random.seed <<- old } )
   }
+  
   serie <- as.vector(serie)
   n <- length(serie)
   na_ind <- is.na(serie)
@@ -36,8 +36,8 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   a_sim <- vector(mode = 'double',length = simulations)
 
   #Begin simulations:
-  set.seed(14243)
   if(dstr == 'norm'){
+    set.seed(14243)
     for(j in 1:simulations){
       aux <- rnorm(n_no_na,mean=serie_mean,sd = serie_sd)
       sd_aux <- sd(aux)
@@ -52,6 +52,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
       a_sim[j]<- max(t)
     }
   } else if( dstr == 'gamma'){
+    set.seed(14243)
     for(j in 1:simulations){
       aux <- rgamma(n=n_no_na,shape=par_gamma$estimate[1],rate = par_gamma$estimate[2])
       aux <- aux + delta
@@ -68,6 +69,7 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
     }
 
   } else if (dstr == 'self'){
+    set.seed(14243)
     for(j in 1:simulations){
       aux <- sample(x = serie_com,replace = T,size = n_no_na)
       sd_aux <- sd(aux)
@@ -92,5 +94,9 @@ SNHT  <- function(serie,n_period=10,dstr='norm',simulations = 1000){
   cum_dist_func <- ecdf(a_sim)
   p <- 1-cum_dist_func(t_cri)
   out <- list(breaks = i_break+1 ,p.value = p)
+  if(exists(x = 'old')){
+    old <- .Random.seed
+    .Random.seed <- old
+  }
   return(out)
 }
