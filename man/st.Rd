@@ -1,15 +1,17 @@
 \name{Student}
 \alias{stu}
 \alias{man.whi}
-\title{Mann-Whitney-Wilcoxon Test and Student t-test}
+\alias{pettit}
+\title{Mann-Whitney-Wilcoxon Test, Student t-test and Pettit Test }
 \description{
-  Compute Rolling Mann-Whitney-Wilcoxon Test and Student t-test for homogeneity, NAs allow in both Test
+  Compute Rolling Mann-Whitney-Wilcoxon Test, Rolling Student t-test and Pettit test for homogeneity, NAs allow.
 }
 \usage{
   stu(serie,n_period=10)
 
   man.whi(serie,n_period=10)
-
+  
+  pettit(serie,n_period=10)
 }
 \arguments{
   \item{serie}{numeric vector where the breakpoint is looked for}
@@ -21,7 +23,7 @@
 
 
 \value{
-  \code{man.whi} and \code{stu} returns a list with the breakpoint index and its p value
+  \code{pettit}, \code{man.whi} and \code{stu} returns a list with the breakpoint index and its p value
   \describe{
   \item{breaks}{index where the breakpoint is found}
   \item{p.value}{p value of the test}
@@ -30,6 +32,8 @@
 
 \details{
 \code{man.whi} compute Mann-Whitney-Wilcoxon Test and \code{stu} the Student t-test for all possible breaks in the serie and get the most significant break.In both test NA values are allow.
+
+\code{pettit} Compute de Pettit Test for Homogeneity. NA values are allow. Pettitt 1979 in Applied statistics.
 
 }
 \examples{

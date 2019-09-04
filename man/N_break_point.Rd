@@ -16,13 +16,13 @@
 
   \item{seed}{ if FALSE (default) the first breakpoints to inicialize the iteration are calculated by splitting the serie in equal separated parts. If seed is given must be a list() of length n_max where it is specified the first breakpoints to take for each iteration. }
 
-  \item{method}{which method should be used for breakpoint detection, supported: 'student' (default), 'mann-whitney','SNHT','buishand' and 'pettit'}
+  \item{method}{which method should be used for breakpoint detection, supported: 'student', 'mann-whitney','SNHT' (default),'buishand' and 'pettit'}
 
-  \item{dstr}{character specifying which distribution should be used for test simulations,if method is SNHT or buishand}
+  \item{dstr}{character specifying which distribution should be used for test simulations, only used if method is SNHT or buishand. Posible distributions 'norm' (default, normal dist), 'gamma', and 'self' (bootstrap)}
 
   \item{auto_select}{ logical, should an automatic selection of how many breakpoints are be made, default FALSE}
 
-  \item{alpha}{numeric, critical value to use for auto_select}
+  \item{alpha}{numeric, critical p value to use for auto_select}
 
 }
 

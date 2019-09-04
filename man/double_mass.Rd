@@ -12,7 +12,7 @@
 \arguments{
   \item{serie}{numeric vector where the breakpoint is looked for}
 
-  \item{ploting}{ logical, should the curve be plot (default TRUE), if FALSE the output is a data.frame with the values for the curves}
+  \item{ploting}{ logical, should the curve be plot, if TRUE (default) the output is a ggplot object, if FALSE the output is a data.frame with the values for the curves}
 
   \item{date_axis}{ vector of type Date or POSIX with the date of the serie in same order. If given will be used for x-axis in the plot }
 
