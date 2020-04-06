@@ -6,5 +6,6 @@ citEntry(entry = "Article",
          year = "2020",
          journal="Atmospheric Research",
          publisher="Elsevier",
-         url = "https://doi.org/10.1016/j.atmosres.2020.104955"
+         url = "https://doi.org/10.1016/j.atmosres.2020.104955",
+         textVersion="Hurtado, S. I., Zaninelli, P. G., & Agosta, E. A. (2020). A multi-breakpoint methodology to detect changes in climatic time series. An application to wet season precipitation in subtropical Argentina. Atmospheric Research, 104955."
          )
