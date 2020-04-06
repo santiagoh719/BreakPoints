@@ -1,11 +1,10 @@
 citHeader("To cite BreakPoints in publications, please use:")
 
-bibentry(bibtype = "Article",
+citEntry(entry = "Article",
          title = "A multi-breakpoint methodology to detect changes in climatic time series. An application to wet season precipitation in subtropical Argentina",
-         author = c(person("Santiago I.", "Hurtado"),
-                    person("Pablo G.", "Zaninelli"),
-                    person("Eduardo A.", "Agosta")),
+         author = "Hurtado, Santiago I and Zaninelli, Pablo G and Agosta, Eduardo A",
          year = "2020",
          journal="Atmospheric Research",
-         publishe="Elsevier",
-         url = "https://doi.org/10.1016/j.atmosres.2020.104955")
+         publisher="Elsevier",
+         url = "https://doi.org/10.1016/j.atmosres.2020.104955"
+         )
