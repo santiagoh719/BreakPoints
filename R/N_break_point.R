@@ -5,7 +5,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
   if(exists(x = '.Random.seed')){
     old_random <- .Random.seed
   }
-  
+  set.seed(9658)
   if(!is.logical(seed)){
     if(length(seed) != n_max){
       stop('The given seed is not supported. If seed is given must be of length n_max')
