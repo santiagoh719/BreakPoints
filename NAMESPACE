@@ -5,10 +5,11 @@ importFrom(MASS, fitdistr)
 importFrom(trend, mk.test)
 
 
-export(double_mass)
 export(Buishand_R)
 export(pettit)
 export(SNHT)
 export(stu)
 export(man.whi)
 export(N_break_point)
+export(sum_yam)
+export(yamamoto)
