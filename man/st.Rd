@@ -37,7 +37,7 @@
 
 }
 \examples{
-x <- c(runif(100,3,5),runif(200,5,5))
+x <- c(rnorm(100,3,5),rnorm(200,5,5))
 break1 <- stu(serie=x)
 break2 <- man.whi(serie=x)
 plot(x)
