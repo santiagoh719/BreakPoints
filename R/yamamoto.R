@@ -81,5 +81,5 @@ yamamoto <- function(serie, alpha = 0.1, n_period = 10){
     aux <- index_qui[2:length(index_qui)] - index_qui[1:(length(index_qui)-1)]
   }
   
-  return(list(breaks=index_qui[order(quiqui[index_qui]) < 6], n=length(index_qui)))
+  return(list(breaks=index_qui, n=length(index_qui)))
 }
