@@ -43,6 +43,8 @@
   break1 <- SNHT(serie=x)
   break2 <- Buishand_R(serie=x)
   plot(x)
-  abline(v=break1$breaks, col='blue') # to plot a line where the breakpoint is found by the SNHT test
-  abline(v=break2$breaks, col='red') # to plot a line where the breakpoint is found by the Buishand Range test
+  # plot a line where the breakpoint is found by the SNHT test
+  abline(v=break1$breaks, col='blue')
+  # plot a line where the breakpoint is found by the Buishand Range test
+  abline(v=break2$breaks, col='red')
 }

@@ -5,7 +5,9 @@
   Look for several breakpoints
 }
 \usage{
-  N_break_point(serie, n_max = 1, n_period=10, seed='T',method='student',dstr='norm', auto_select = F, alpha = NULL)
+  N_break_point(serie, n_max = 1, n_period=10,
+                          seed=FALSE, auto_select = FALSE,
+                          alpha = NULL,method='SNHT',dstr='norm')
 }
 \arguments{
   \item{serie}{numeric vector where the breakpoint is looked for}
@@ -39,8 +41,5 @@
 
 \details{
 Compute homogeneity test for all possible breaks in the serie considering several breakpoints. NA values are allow.
-
-}
-\examples{
 
 }

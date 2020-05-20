@@ -10,7 +10,7 @@
   stu(serie,n_period=10)
 
   man.whi(serie,n_period=10)
-  
+
   pettit(serie,n_period=10)
 }
 \arguments{
@@ -41,6 +41,8 @@ x <- c(rnorm(100,3,5),rnorm(200,5,5))
 break1 <- stu(serie=x)
 break2 <- man.whi(serie=x)
 plot(x)
-abline(v=break1$breaks, col='blue') # to plot a line where the breakpoint is found by the Student test
-abline(v=break2$breaks, col='red') # to plot a line where the breakpoint is found by the Mann-Whitney-Wilcoxon test
+# plot a line where the breakpoint is found by the Student test
+abline(v=break1$breaks, col='blue')
+# plot a line where the breakpoint is found by the Mann-Whitney-Wilcoxon test
+abline(v=break2$breaks, col='red')
 }
