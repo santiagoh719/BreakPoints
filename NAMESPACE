@@ -3,7 +3,8 @@ import(ggplot2)
 importFrom(zoo, rollapply)
 importFrom(MASS, fitdistr)
 importFrom(trend, mk.test)
-
+importFrom("stats", "ecdf", "qt", "rgamma", "rnorm", "sd", "t.test",
+               "wilcox.test")
 
 export(Buishand_R)
 export(pettit)
