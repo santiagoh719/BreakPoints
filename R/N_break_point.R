@@ -1,5 +1,5 @@
 N_break_point <- function(serie, n_max = 1, n_period=10,
-                          seed='F', auto_select = F,
+                          seed=FALSE, auto_select = FALSE,
                           alpha = NULL,method='SNHT',dstr='norm'){
   # select method
   if(exists(x = '.Random.seed')){
@@ -11,7 +11,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       stop('The given seed is not supported. If seed is given must be of length n_max')
     }
   }
-  
+
   {
     if( method == 'pettit'){
       fun <- pettit
@@ -29,8 +29,8 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       }
     }else{stop('Not supported method')}
   }
-  
-  
+
+
   target <- as.vector(serie)
   n_targ <- length(target)
   isna <- as.numeric(is.na(target))
@@ -66,7 +66,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       target <- new_target[na_break[new_serie-1]:(na_break[new_serie]-1)]
     }
     outputcont <- outputcont +1
-    
+
     n_targ <- length(target)
     if((n_max+1)*n_period > n_targ-2){
       n_max <- n_targ%/%n_period-1
@@ -124,7 +124,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
               aux <- target[breaks[i-1]:(breaks[i+1]-1)]
               break_aux <- breaks[i-1]-1
             }
-            
+
             ff <- fun(aux,n_period)
             breaks[i] <- ff$breaks + break_aux
             p[i] <- ff$p.value
@@ -156,7 +156,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
     }
     output[[outputcont]] <- output_aux
   }
-  
+
   if(auto_select){
     output_new <- output
     output <- list(breaks = NULL,p.value=NULL,n=NULL)
@@ -184,10 +184,10 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
     }
     output <- list(breaks = bb,p.value=pp_final,n=n_final)
   }
-  
+
   if(exists(x = '.Random.seed')){
     .Random.seed <- old_random
   }
   return(output)
-  
+
 }

@@ -1,4 +1,4 @@
-pettit <- function(serie,n_period){
+pettit <- function(serie,n_period=10){
   if(exists(x = '.Random.seed')){
       old <- .Random.seed
   }
