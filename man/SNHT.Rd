@@ -38,16 +38,7 @@
   \code{Buishand_R} Compute Buishand Range Test for Homogeneity where NA values are allow.
 
 }
-\examples{
-  x <- c(rnorm(100,3,5),rnorm(200,5,5))
-  break1 <- SNHT(serie=x)
-  break2 <- Buishand_R(serie=x)
-  plot(x)
-  # plot a line where the breakpoint is found by the SNHT test
-  abline(v=break1$breaks, col='blue')
-  # plot a line where the breakpoint is found by the Buishand Range test
-  abline(v=break2$breaks, col='red')
-}
+
 \references{
 - Alexandersson, H., jan 1986. A homogeneity test applied to precipitation data. Journal of Climatology
 6 (6), 661–675.
