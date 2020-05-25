@@ -1,11 +1,11 @@
 Package: BreakPoints
 Type: Package
-Title: Identify breakpoints in series of data
+Title: Identify Breakpoints in Series of Data
 Version: 1.2
 Author: Hurtado I. Santiago
 Maintainer: Hurtado I. Santiago <santih@carina.fcaglp.unlp.edu.ar>
-Description: This package compute Buishand Range Test, Pettit Test, SNHT (), student test and Mann-Whitney Rank Test, to identify breakpoints in series. For all functions NA is allow. Since all of the mention methods identify only one breakpoint in a serie, a general function to look for N breakpoint is proposed and given.
-License: file LICENSE
+Description: Compute Buishand Range Test, Pettit Test, SNHT, Student t-test, and Mann-Whitney Rank Test, to identify breakpoints in series. For all functions NA is allowed. Since all of the mention methods identify only one breakpoint in a series, a general function to look for N breakpoint is given. Also, the Yamamoto test for climate jump is available.
+License: GPL-3
 Depends: R (>= 3.1.0)
 Imports: 
         MASS,
