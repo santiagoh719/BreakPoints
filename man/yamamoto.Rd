@@ -31,3 +31,6 @@
 \details{
   \code{yamamoto} compute the Yamamoto Test.
 }
+\references{
+  Yamamoto, R., Iwashima, T., Kazadi, S. N., & Hoshiai, M. (1985). Climatic jump: a hypothesis in climate diagnosis. Journal of the Meteorological Society of Japan. Ser. II, 63(6), 1157-1160.
+}

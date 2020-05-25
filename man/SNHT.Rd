@@ -35,7 +35,7 @@
 \details{
   \code{SNHT} compute Standard Normal Homogeneity Test where NA values are allow.
 
-  \code{Buishand_R} Compute Buishand Range Test for Homogeneity where NA values are allow. Publish by Buishand in 1982 in Journal of Hydrology.
+  \code{Buishand_R} Compute Buishand Range Test for Homogeneity where NA values are allow.
 
 }
 \examples{
@@ -47,4 +47,14 @@
   abline(v=break1$breaks, col='blue')
   # plot a line where the breakpoint is found by the Buishand Range test
   abline(v=break2$breaks, col='red')
+}
+\references{
+- Alexandersson, H., jan 1986. A homogeneity test applied to precipitation data. Journal of Climatology
+6 (6), 661–675.
+URL http://doi.wiley.com/10.1002/joc.3370060607
+
+- Buishand, T., aug 1982. Some methods for testing the homogeneity of rainfall records. Journal of Hydrology
+58 (1-2), 11–27.
+URL https://www.sciencedirect.com/science/article/pii/002216948290066Xhttps://linkinghub.elsevier.
+com/retrieve/pii/002216948290066X
 }

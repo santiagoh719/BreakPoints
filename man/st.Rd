@@ -33,7 +33,7 @@
 \details{
 \code{man.whi} compute Mann-Whitney-Wilcoxon Test and \code{stu} the Student t-test for all possible breaks in the serie and get the most significant break.In both test NA values are allow.
 
-\code{pettit} Compute de Pettit Test for Homogeneity. NA values are allow. Pettitt 1979 in Applied statistics.
+\code{pettit} Compute the Pettit Test for Homogeneity. NA values are allow.
 
 }
 \examples{
@@ -45,4 +45,18 @@ plot(x)
 abline(v=break1$breaks, col='blue')
 # plot a line where the breakpoint is found by the Mann-Whitney-Wilcoxon test
 abline(v=break2$breaks, col='red')
+}
+\references{
+- Ruxton, G. D., jul 2006. The unequal variance t-test is an underused alternative to Student’s t-test and
+the Mann–Whitney U test. Behavioral Ecology 17 (4), 688–690.
+URL: http://academic.oup.com/beheco/article/17/4/688/215960/The-unequal-variance-ttest-is-an-
+underused
+
+- Mann, H. B., Whitney, D. R., mar 1947. On a Test of Whether one of Two Random Variables is
+Stochastically Larger than the Other. The Annals of Mathematical Statistics 18 (1), 50–60.
+URL http://projecteuclid.org/euclid.aoms/1177730491
+
+- Pettitt, A. N., 1979. A Non-Parametric Approach to the Change-Point Problem. Applied Statistics 28 (2),
+126.
+URL https://www.jstor.org/stable/10.2307/2346729?origin=crossref
 }

@@ -43,3 +43,7 @@
 Compute homogeneity test for all possible breaks in the serie considering several breakpoints. NA values are allow.
 
 }
+
+\references{
+Hurtado, S. I., Zaninelli, P. G., & Agosta, E. A. (2020). A multi-breakpoint methodology to detect changes in climatic time series. An application to wet season precipitation in subtropical Argentina. Atmospheric Research, 104955.
+}
