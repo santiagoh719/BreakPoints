@@ -5,4 +5,8 @@ This package compute Buishand Range Test, Pettit Test, SNHT , student test and M
 
 To install BreakPoints:
 
+install.packages("BreakPoints")
+
+To install BreakPoints (unstable):
+
 devtools::install_github("santiagoh719/BreakPoints")
