@@ -1,7 +1,22 @@
 N_break_point <- function(serie, n_max = 1, n_period=10,
                           seed=FALSE, auto_select = FALSE,
-                          alpha = NULL,method='SNHT',dstr='norm'){
+                          alpha = 0.1, method='SNHT',dstr='norm'){
   # select method
+  
+  checks <- makeAssertCollection()
+  assert_int(n_max,  lower = 1, add = checks)
+  assert_int(n_period,   lower = 3 , add = checks)
+  assert_logical(auto_select, len = 1,add = checks)
+  assert_double(alpha, lower = 0, upper = 1, len = 1,null.ok = TRUE, add = checks)
+  assert_choice(method,
+                choices = c('pettit','mann-whitney','student','buishand','SNHT'),
+                add = checks)
+  assert_choice(dstr,
+                choices = c('norm','self','gamma'),
+                add = checks)
+  
+  reportAssertions(checks)
+  
   if(exists(x = '.Random.seed')){
     old_random <- .Random.seed
   }
@@ -11,7 +26,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       stop('The given seed is not supported. If seed is given must be of length n_max')
     }
   }
-
+  
   {
     if( method == 'pettit'){
       fun <- pettit
@@ -29,18 +44,19 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       }
     }else{stop('Not supported method')}
   }
-
-
+  
+  
   target <- as.vector(serie)
   n_targ <- length(target)
   isna <- as.numeric(is.na(target))
   n_period_2 <- as.integer(n_period)
   ii <- c(rep(0,n_period_2),rollapply(isna,width=n_period+1,sum),rep(0,n_period_2))
   ii <- which(ii >= (n_period_2/2))
+  
   if(length(ii) > 1){
     na_break <- c(ii , n_targ+1)
     ii_aux <- ii[2:length(ii)] - ii[1:(length(ii)-1)]
-    ii_aux <- ii_aux < 10
+    ii_aux <- ii_aux < n_period_2
     jump <- c(ii[1]<n_period_2,ii_aux,n_targ+1-ii[length(ii)]<n_period_2)
   }else if(length(ii) == 1){
     na_break <- c(ii , n_targ+1)
@@ -49,6 +65,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
     na_break <- n_targ+1
     jump <- FALSE
   }
+  
   new_target <- target
   new_n_targ <- n_targ
   output <- list()
@@ -66,7 +83,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       target <- new_target[na_break[new_serie-1]:(na_break[new_serie]-1)]
     }
     outputcont <- outputcont +1
-
+    
     n_targ <- length(target)
     if((n_max+1)*n_period > n_targ-2){
       n_max <- n_targ%/%n_period-1
@@ -80,8 +97,8 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
       }
       warning(paste0('the given n is too big for the target and n_period length, ',n_max, ' will be use as maximal amount of breakpoints') )
     }
-    output_aux <- list(breaks = list(),p.value=list(),n=list())
-    for(n in 1:n_max){
+    
+    output_aux <- foreach(n = 1:n_max) %do% {
       if(is.logical(seed)){
         breaks <- as.integer(1:n * (n_targ/(n+1)))+1
       }else{
@@ -124,7 +141,7 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
               aux <- target[breaks[i-1]:(breaks[i+1]-1)]
               break_aux <- breaks[i-1]-1
             }
-
+            
             ff <- fun(aux,n_period)
             breaks[i] <- ff$breaks + break_aux
             p[i] <- ff$p.value
@@ -144,50 +161,52 @@ N_break_point <- function(serie, n_max = 1, n_period=10,
           }
         }
       }
+      
       if(is.null(breaks)){
-        output_aux$breaks[[n]] <- NA
-        output_aux$p.value[[n]] <- 1
-        output_aux$n[[n]] <- n
+        list(breaks = NA, p.value = 1, n = n )
+        
       }else{
-        output_aux$breaks[[n]] <- breaks+ini
-        output_aux$p.value[[n]] <- p
-        output_aux$n[[n]] <- n
+        list(breaks = breaks+ini, p.value = p, n = n )
       }
     }
     output[[outputcont]] <- output_aux
   }
-
-  if(auto_select){
-    output_new <- output
-    output <- list(breaks = NULL,p.value=NULL,n=NULL)
-    cont <-0
-    bb <- NULL
-    pp_final <- NULL
-    n_final <- 0
-    for(output_aux in output_new){
-      cont <- cont + 1
-      n_max <- length(output_aux$p.value)
-      pp <- vector(mode = 'double',length = n_max)
-      for(i in 1:n_max){
-        pp[i] <- max(output_aux$p.value[[i]])
-      }
-      if(is.null(alpha)){
-        i <- which.min(pp)
-      } else{
-        aa <- 1:n_max
-        i <-max(aa[pp < alpha])
-        if(is.infinite(i)){next}
-      }
-      bb <- c(bb,output_aux$breaks[[i]])
-      pp_final <- c(pp_final,output_aux$p.value[[i]])
-      n_final <- i + n_final
+  
+  if(is.null(alpha) | !auto_select){
+    if(exists(x = '.Random.seed')){
+      .Random.seed <- old_random
     }
-    output <- list(breaks = bb,p.value=pp_final,n=n_final)
+    return(output)
   }
-
+  
+  if(auto_select){
+    output_save <- output
+    output_fin <- list(breaks = NULL,p.value=NULL,n=NULL)
+    auxiliar_cont <- 0
+    for(output in output_save){
+      auxiliar_cont <- auxiliar_cont + 1
+      output_new <- output
+      output <- list(breaks = NULL,p.value=NULL,n=NULL)
+      bb <- NULL
+      pp_final <- NULL
+      
+      for(output_aux in output_new){
+        if(max(output_aux$p.value) < alpha){
+          bb <- output_aux$breaks
+          pp_final <- output_aux$p.value
+          n_final <- output_aux$n
+        }
+      }
+      
+      output_fin <- list(breaks = c(output_fin$breaks,bb),
+                         p.value=c(output_fin$p.value,pp_final),
+                         n=c(output_fin$n,n_final))
+    }
+  }
+  
   if(exists(x = '.Random.seed')){
     .Random.seed <- old_random
   }
-  return(output)
-
+  return(output_fin)
+  
 }
